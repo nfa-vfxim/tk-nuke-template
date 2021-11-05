@@ -40,7 +40,7 @@ class NukeTemplateGenerator(Application):
         self.handler = self.tk_nuke_template.NukeTemplateHandler()
 
         # Add callbacks
-        self.handler.addCallbacks()
+        self.handler.add_callbacks()
 
 
     def destroy_app(self):
@@ -50,4 +50,4 @@ class NukeTemplateGenerator(Application):
         self.log_debug("Destroying tk-nuke-template app")
 
         # Remove any callbacks that were registered by the handler
-        self.handler.removeCallbacks()
+        self.handler.remove_callbacks()
