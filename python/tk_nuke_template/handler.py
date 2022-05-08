@@ -35,6 +35,8 @@ class NukeTemplateHandler:
         # Checks if script contains the placeholder node
         placeholder_found = False
 
+        nodes = nuke.allNodes()
+
         for node in nuke.allNodes("ModifyMetaData"):
             if node.name() == "createTemplatePlaceholder":
                 placeholder_found = True
@@ -42,6 +44,9 @@ class NukeTemplateHandler:
         if placeholder_found:
             # If node is found, initiate template generation
             logger.info("Placeholder node found. Initiating template generation...")
+            self.generate_template()
+
+        elif len(nodes) == 0:
             self.generate_template()
 
     def generate_template(self):
