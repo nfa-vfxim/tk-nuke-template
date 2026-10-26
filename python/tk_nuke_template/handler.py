@@ -17,6 +17,9 @@ import nuke
 # standard toolkit logger
 logger = sgtk.platform.get_logger(__name__)
 
+# Colorspace die de plate-Read standaard krijgt
+PLATE_COLORSPACE = "ACES2065-1"
+
 
 class NukeTemplateHandler:
     """
@@ -122,6 +125,15 @@ class NukeTemplateHandler:
         # Connect read node
         plate_noop.setInput(0, read_node)
         nuke.delete(plate_noop)
+
+        # Set plate colorspace
+        try:
+            read_node["colorspace"].setValue(PLATE_COLORSPACE)
+        except Exception as e:
+            logger.warning(
+                "Could not set colorspace %s on %s: %s"
+                % (PLATE_COLORSPACE, read_node.name(), e)
+            )
 
         # Reposition write node
         write_no_op = nuke.toNode("writeNoOp")
